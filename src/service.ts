@@ -1,39 +1,51 @@
-import axios from 'axios';
 import { join } from 'path';
-import { getApiKey } from 'kokkoro';
-import { segment } from 'kokkoro/lib/util';
-import { SaucenaoOption } from './types';
+import { Logger } from 'kokkoro';
+import { Readable } from 'stream';
+import sagiri, { SagiriResult, Options } from 'sagiri';
 
-const key = getApiKey('saucenao');
-const api = 'https://saucenao.com/search.php';
-const images_path = join(__dirname, '../images');
+import { SaucenaoOption } from '.';
 
-export async function searchImage(url: string, option: SaucenaoOption) {
-  if (!key) {
-    throw new Error('你没有添加 apikey ，saucenao 服务将无法使用');
-  }
-  url = url.indexOf('?') > -1 ? url.match(/.+(?=\?)/g)![0] : url;
+type File = string | Buffer | Readable;
+const xcw = join(__dirname, '../images/h.jpg');
 
-  const { db, output_type, testmode, numres, minSimilarity } = option;
-  const params = `?db=${db}&output_type=${output_type}&testmode=${testmode}&numres=${numres}&api_key=${key}&url=${url}`;
+export class SaucenaoService {
+  /** API */
+  api: string;
+  client?: (file: File, optionOverrides?: Options) => Promise<SagiriResult[]>;
 
-  try {
-    const response = await axios.get(api + params);
-    const { results } = response.data;
-    const search_message: any[] = [];
+  constructor(
+    /** 日志 */
+    private logger: Logger,
+    /** API key */
+    private api_key?: string,
+  ) {
+    this.api = 'https://saucenao.com/search.php';
+    this.client = this.api_key ? sagiri(this.api_key) : undefined;
 
-    for (const result of results) {
-      const { header: { similarity, thumbnail, index_name }, data } = result;
-      const cover = similarity > minSimilarity
-        ? segment.image(thumbnail)
-        : segment.image(join(images_path, 'h.jpg'));
-
-      search_message.push(`平台：${index_name.match(/(?<=: ).*(?=\ -)/g)}\n封面：`);
-      search_message.push(cover);
-      search_message.push(`\n相似：${similarity}%\n${data.ext_urls ? `地址：${data.ext_urls.join('\n')}` : `日文：${data.jp_name}\n英语：${data.eng_name}`}\n\n`);
+    if (!this.api_key) {
+      this.logger.warn('你没有添加 api key ，saucenao 服务将无法正常使用');
     }
-    return search_message;
-  } catch (error) {
-    throw error;
+  }
+
+  async searchImage(url: string, option: SaucenaoOption) {
+    if (!this.client) {
+      throw new Error('你没有添加 api key ，saucenao 服务将无法正常使用');
+    }
+    const options: Options = {
+      results: (<SaucenaoOption>option).results,
+      mask: (<SaucenaoOption>option).mask,
+      excludeMask: (<SaucenaoOption>option).excludeMask,
+      testMode: (<SaucenaoOption>option).testMode,
+      db: (<SaucenaoOption>option).db,
+    };
+    const results = await this.client(url, options);
+
+    results.map((result) => {
+      if (result.similarity < option.similarity) {
+        result.thumbnail = xcw;
+      }
+      return result;
+    });
+    return results;
   }
 }
