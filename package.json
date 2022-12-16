@@ -1,6 +1,6 @@
 {
   "name": "kokkoro-plugin-saucenao",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "SauceNAO 图片搜索",
   "main": "lib/index.js",
   "scripts": {

@@ -33,7 +33,7 @@ export class SaucenaoService {
     }
     const options: Options = {
       results: (<SaucenaoOption>option).results,
-      mask: (<SaucenaoOption>option).mask,
+      mask: (<SaucenaoOption>option).mask.length ? (<SaucenaoOption>option).mask : undefined,
       excludeMask: (<SaucenaoOption>option).excludeMask,
       testMode: (<SaucenaoOption>option).testMode,
       db: (<SaucenaoOption>option).db,

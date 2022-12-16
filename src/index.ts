@@ -52,7 +52,7 @@ plugin
       const result = results[i];
       const { site, similarity, thumbnail, authorName, url } = result;
       const message = {
-        message: [`平台：${site}\n封面：`, '\n', segment.image(thumbnail), `相似度：${similarity}\n作者：${authorName}\n来源：${url}`],
+        message: [`封面：\n`, segment.image(thumbnail), `\n平台：${site}\n相似度：${similarity}\n作者：${authorName}\n来源：${url}`],
         user_id: ctx.self_id,
         nickname: bot.nickname,
       };
