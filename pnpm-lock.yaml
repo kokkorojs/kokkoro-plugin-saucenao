@@ -1,21 +1,21 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@types/node': ^18.11.15
-  kokkoro: ^1.2.9
+  '@types/node': ^18.11.18
+  kokkoro: ^1.3.0
   sagiri: ^3.2.4
 
 dependencies:
   sagiri: 3.2.4
 
 devDependencies:
-  '@types/node': 18.11.15
-  kokkoro: 1.2.9
+  '@types/node': 18.11.18
+  kokkoro: 1.3.0
 
 packages:
 
-  /@types/node/18.11.15:
-    resolution: {integrity: sha512-VkhBbVo2+2oozlkdHXLrb3zjsRkpdnaU2bXmX8Wgle3PUi569eLRaHGlgETQHR7lLL1w7GiG3h9SnePhxNDecw==}
+  /@types/node/18.11.18:
+    resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
     dev: true
 
   /asynckit/0.4.0:
@@ -158,8 +158,8 @@ packages:
       graceful-fs: 4.2.10
     dev: true
 
-  /kokkoro/1.2.9:
-    resolution: {integrity: sha512-RiCnC/rT9+DUpqMZ4pQQHQQ3nVKQuYPPnv/FqsEkL8e9jMbL9BbHa00k5n1VgNfSpD3AFtSA4/KWDOztBr+8mg==}
+  /kokkoro/1.3.0:
+    resolution: {integrity: sha512-UtDepTSdxUqd3F9JdPwKwENgOEVKMbp5ux9VWHPi++8BiRt5ut41tQMS4YSR7rI6J8i7R9NM/ZcrAr4It7288g==}
     engines: {node: '>= v15'}
     dependencies:
       cron: 2.1.0
@@ -182,7 +182,7 @@ packages:
       debug: 4.3.4
       flatted: 3.2.7
       rfdc: 1.3.0
-      streamroller: 3.1.3
+      streamroller: 3.1.4
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -288,8 +288,8 @@ packages:
       - supports-color
     dev: true
 
-  /streamroller/3.1.3:
-    resolution: {integrity: sha512-CphIJyFx2SALGHeINanjFRKQ4l7x2c+rXYJ4BMq0gd+ZK0gi4VT8b+eHe2wi58x4UayBAKx4xtHpXT/ea1cz8w==}
+  /streamroller/3.1.4:
+    resolution: {integrity: sha512-Ha1Ccw2/N5C/IF8Do6zgNe8F3jQo8MPBnMBGvX0QjNv/I97BcNRzK6/mzOpZHHK7DjMLTI3c7Xw7Y1KvdChkvw==}
     engines: {node: '>=8.0'}
     dependencies:
       date-format: 4.0.14

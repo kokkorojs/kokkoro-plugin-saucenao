@@ -38,12 +38,15 @@ plugin
   .command('search', 'group')
   .sugar(/^搜图$/)
   .action(async (ctx) => {
-    const { bot, option } = ctx;
+    const { bot, option, sender, group_id } = ctx;
+    const { user_id } = sender;
     const scanner = new Scanner(bot);
 
     await ctx.reply(`请发送你要搜索的图片 (●'◡'●)`);
 
-    const { url } = await scanner.nextImage(ctx.sender.user_id) as ImageElem;
+    const { url } = await scanner.nextImage({
+      user_id, group_id,
+    });
     const results = await service.searchImage(url!, option as SaucenaoOption);
     const results_length = results.length;
     const forwardMessage = [];
